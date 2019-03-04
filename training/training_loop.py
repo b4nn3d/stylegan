@@ -146,7 +146,7 @@ def training_loop(
     training_set = dataset.load_dataset(data_dir=config.data_dir, verbose=True, **dataset_args)
 
     # Construct networks.
-    with tf.device('/gpu:0'):
+    with tf.device('/cpu:0'):
         if resume_run_id is not None:
             network_pkl = misc.locate_network_pkl(resume_run_id, resume_snapshot)
             print('Loading networks from "%s"...' % network_pkl)
@@ -185,7 +185,7 @@ def training_loop(
     D_train_op = D_opt.apply_updates()
 
     Gs_update_op = Gs.setup_as_moving_average_of(G, beta=Gs_beta)
-    with tf.device('/gpu:0'):
+    with tf.device('/cpu:0'):
         try:
             peak_gpu_mem_op = tf.contrib.memory_stats.MaxBytesInUse()
         except tf.errors.NotFoundError:
