@@ -130,7 +130,7 @@ def training_loop(
     mirror_augment          = False,    # Enable mirror augment?
     drange_net              = [-1,1],   # Dynamic range used when feeding image data to the networks.
     image_snapshot_ticks    = 1,        # How often to export image snapshots?
-    network_snapshot_ticks  = 10,       # How often to export network snapshots?
+    network_snapshot_ticks  = 1,       # How often to export network snapshots?
     save_tf_graph           = False,    # Include full TensorFlow computation graph in the tfevents file?
     save_weight_histograms  = False,    # Include weight histograms in the tfevents file?
     resume_run_id           = None,     # Run ID or network pkl to resume training from, None = start from scratch.
@@ -146,7 +146,7 @@ def training_loop(
     training_set = dataset.load_dataset(data_dir=config.data_dir, verbose=True, **dataset_args)
 
     # Construct networks.
-    with tf.device('/cpu:0'):
+    with tf.device('/gpu:0'):
         if resume_run_id is not None:
             network_pkl = misc.locate_network_pkl(resume_run_id, resume_snapshot)
             print('Loading networks from "%s"...' % network_pkl)
@@ -185,7 +185,7 @@ def training_loop(
     D_train_op = D_opt.apply_updates()
 
     Gs_update_op = Gs.setup_as_moving_average_of(G, beta=Gs_beta)
-    with tf.device('/cpu:0'):
+    with tf.device('/gpu:0'):
         try:
             peak_gpu_mem_op = tf.contrib.memory_stats.MaxBytesInUse()
         except tf.errors.NotFoundError:
