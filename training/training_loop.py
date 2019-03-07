@@ -57,8 +57,8 @@ def training_schedule(
     training_set,
     num_gpus,
     lod_initial_resolution  = 4,        # Image resolution used at the beginning.
-    lod_training_kimg       = 600,      # Thousands of real images to show before doubling the resolution.
-    lod_transition_kimg     = 600,      # Thousands of real images to show when fading in new layers.
+    lod_training_kimg       = 10,      # Thousands of real images to show before doubling the resolution.
+    lod_transition_kimg     = 10,      # Thousands of real images to show when fading in new layers.
     minibatch_base          = 16,       # Maximum minibatch size, divided evenly among GPUs.
     minibatch_dict          = {},       # Resolution-specific overrides.
     max_minibatch_per_gpu   = {},       # Resolution-specific maximum minibatch size per GPU.
@@ -70,7 +70,8 @@ def training_schedule(
     #tick_kimg_base          = 160,      # Default interval of progress snapshots.
     #tick_kimg_dict          = {4: 160, 8:140, 16:120, 32:100, 64:80, 128:60, 256:40, 512:30, 1024:20}): # Resolution-specific overrides.
     tick_kimg_base          = 80,      # Default interval of progress snapshots.
-    tick_kimg_dict          = {4: 80, 8:70, 16:60, 32:50, 64:40, 128:30, 256:20, 512:15, 1024:10}): # Resolution-specific overrides.
+    #tick_kimg_dict          = {4: 80, 8:70, 16:60, 32:50, 64:40, 128:30, 256:20, 512:15, 1024:10}): # Resolution-specific overrides.
+    tick_kimg_dict          = {4: 10, 8:10, 16:10, 32:10, 64:10, 128:10, 256:10, 512:5, 1024:2}): # Resolution-specific overrides.
 
     
     # Initialize result dict.
