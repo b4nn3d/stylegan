@@ -57,8 +57,8 @@ def training_schedule(
     training_set,
     num_gpus,
     lod_initial_resolution  = 4,        # Image resolution used at the beginning.
-    lod_training_kimg       = 20,      # Thousands of real images to show before doubling the resolution.
-    lod_transition_kimg     = 20,      # Thousands of real images to show when fading in new layers.
+    lod_training_kimg       = 600,      # Thousands of real images to show before doubling the resolution.
+    lod_transition_kimg     = 600,      # Thousands of real images to show when fading in new layers.
     minibatch_base          = 16,       # Maximum minibatch size, divided evenly among GPUs.
     minibatch_dict          = {},       # Resolution-specific overrides.
     max_minibatch_per_gpu   = {},       # Resolution-specific maximum minibatch size per GPU.
@@ -139,7 +139,7 @@ def training_loop(
     save_weight_histograms  = False,    # Include weight histograms in the tfevents file?
     resume_run_id           = 'results/00000-sgan-reinforce-1gpu',     # Run ID or network pkl to resume training from, None = start from scratch.
     resume_snapshot         = None,     # Snapshot index to resume training from, None = autodetect.
-    resume_kimg             = 0.0,      # Assumed training progress at the beginning. Affects reporting and training schedule.
+    resume_kimg             = 7000.0,      # Assumed training progress at the beginning. Affects reporting and training schedule.
     resume_time             = 0.0):     # Assumed wallclock time at the beginning. Affects reporting.
 
     # Initialize dnnlib and TensorFlow.
